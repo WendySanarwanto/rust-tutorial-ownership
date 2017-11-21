@@ -38,8 +38,10 @@ fn clone_demo() {
     pause();
 }
 
-fn display_text(text: String) {
-    println!("----> 'display_text' displays the 'text' argument as '{}'", text);
+// A helper to support demo #3. It print the arg then return the arg back to the caller.
+fn display_text(text: String) -> String {
+    println!("----> 'display_text' displays the 'text' argument as '{}'\n", text);
+    text
 }
 
 // Perform demo #3: Assign a heap variable into a function's argument will also move the variable's ownership.
@@ -47,12 +49,14 @@ fn function_demo() {
     println!("3. Assign heap variable as a function's argument");
     println!("-------------------------------------------------\n");
 
-    let mut s1 = String::from("hello world!");
+    let s1 = String::from("hello world!");
     println!("Given, 's1' is '{}' and it is allocated in the Heap.", s1);
     println!("And we have 'display_text' method which takes a String type argument");
-    println!("When we assign 's1' as the argument of 'display_text' method");
+    println!("When we assign 's1' as the argument of 'display_text' method & call the method,");
     println!("Then the ownership of 's1' is also moved to 'display_text' method.");
-    display_text(s1);
+    let s2 = display_text(s1);
+    println!("When called 'display_text', we kept the returned value into 's2'. This means, the ownership has been transfered back to 's2' from 'display_text', now.");
+    println!("----> The 's2' is '{}'\n", s2);
     // Try enable this following line and you'll get compile error
     // s1.push_str("\n");
 }
