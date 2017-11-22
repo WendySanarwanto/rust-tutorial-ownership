@@ -59,6 +59,27 @@ fn function_demo() {
     println!("----> The 's2' is '{}'\n", s2);
     // Try enable this following line and you'll get compile error
     // s1.push_str("\n");
+    pause();
+}
+
+// A helper to get character length of a string
+fn get_length(text: &String) -> usize {
+    return text.len();
+}
+
+// Perofrm demo #4: Reference concept in Rust
+fn reference_demo() {
+    println!("4. References");
+    println!("--------------\n");
+
+    let s1 = String::from("hello world!");
+    println!("Given, 's1' is '{}' and it is allocated in the Heap.", s1);
+    println!("And we have 'get_length' method which takes reference to a String typed argument and returns the length of refered String variable.");
+    println!("When we assign 's1' as the argument of 'get_length' method & call the method,");
+    println!("Then the ownership of 's1' is not moved, and we can re-use 's1' in next line.\n");
+
+    let length = get_length(&s1);
+    println!("----> '{}' has length: {:?}", s1, length);
 }
 
 // Main entry
@@ -71,4 +92,6 @@ fn main() {
     clone_demo();
 
     function_demo();
+
+    reference_demo();
 }
