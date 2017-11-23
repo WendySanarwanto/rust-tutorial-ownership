@@ -67,19 +67,31 @@ fn get_length(text: &String) -> usize {
     return text.len();
 }
 
-// Perofrm demo #4: Reference concept in Rust
+// A helper to support changing a borrowed heap variable
+fn change_borrowed_value(value: &String) {
+    // // If you enable this line , it won't compile. Immutable reference is not allowed to be modified.
+    // value.push_str(" Today is a beautiful day.");
+}
+
+// Perform demo #4: Reference concept in Rust
 fn reference_demo() {
     println!("4. References");
     println!("--------------\n");
 
     let s1 = String::from("hello world!");
     println!("Given, 's1' is '{}' and it is allocated in the Heap.", s1);
-    println!("And we have 'get_length' method which takes reference to a String typed argument and returns the length of refered String variable.");
+    println!("And we have 'get_length' method which takes reference to a String typed argument and returns the length of referred String variable.");
     println!("When we assign 's1' as the argument of 'get_length' method & call the method,");
     println!("Then the ownership of 's1' is not moved, and we can re-use 's1' in next line.\n");
 
     let length = get_length(&s1);
     println!("----> '{}' has length: {:?}", s1, length);
+
+    pause();
+
+    // Next we try to modify the s1 through calling change_borrowed_value and pass s1 into its argument.
+    change_borrowed_value(&s1);
+    println!("\n---->'s1' now is '{}'", s1);
 }
 
 // Main entry
@@ -94,4 +106,5 @@ fn main() {
     function_demo();
 
     reference_demo();
+
 }
