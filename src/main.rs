@@ -67,11 +67,11 @@ fn get_length(text: &String) -> usize {
     return text.len();
 }
 
-// A helper to support changing a borrowed heap variable
-fn change_borrowed_value(value: &String) {
-    // // If you enable this line , it won't compile. Immutable reference is not allowed to be modified.
-    // value.push_str(" Today is a beautiful day.");
-}
+// // If you enable this line , it won't compile. Immutable reference is not allowed to be modified.
+// // A helper to support changing a borrowed heap variable
+// fn change_borrowed_value(value: &String) {
+//     value.push_str(" Today is a beautiful day.");
+// }
 
 // Perform demo #4: Reference concept in Rust
 fn reference_demo() {
@@ -89,9 +89,9 @@ fn reference_demo() {
 
     pause();
 
-    // Next we try to modify the s1 through calling change_borrowed_value and pass s1 into its argument.
-    change_borrowed_value(&s1);
-    println!("\n---->'s1' now is '{}'", s1);
+    // // Next we try to modify the s1 through calling change_borrowed_value and pass s1 into its argument.
+    // change_borrowed_value(&s1);
+    // println!("\n---->'s1' now is '{}'", s1);
 }
 
 // Main entry
@@ -107,4 +107,5 @@ fn main() {
 
     reference_demo();
 
+    dangle_no_dangle_demo();
 }
