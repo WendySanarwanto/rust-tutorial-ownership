@@ -94,6 +94,28 @@ fn reference_demo() {
     // println!("\n---->'s1' now is '{}'", s1);
 }
 
+// // Uncomment this method if you want to see the compiler check for any lines which cause dangling pointer(s).
+// fn dangle() -> &String {
+//     let s = String::from("Hello World!");
+//     &s
+// }
+
+fn no_dangle() -> String {
+    let s1 = String::from("Hello, Rust!");
+    return s1;
+}
+
+fn dangle_no_dangle_demo() {
+    println!("5. Dangle Reference");
+    println!("--------------------\n");
+    
+    // // Enable this line, if you want to see the compile error caued by dangling pointer
+    // let s: String = dangle();
+
+    println!("Called 'no_dangle' method and the returned value is '{}'\n", no_dangle());
+    pause();
+}
+
 // Main entry
 fn main() {
     println!("\nRust Ownership's Demo.");
