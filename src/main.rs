@@ -3,7 +3,7 @@ use std::io;
 // A helper to pause the program , waiting the user pressing enter, before moving to next demo
 fn pause() {
     let stdin = io::stdin();
-    println!("\nPress enter to continue to next demo.\n");
+    println!("\nPress enter to go back to main menu.\n");
     let mut dummy = String::new();
     stdin.read_line(&mut dummy)
         .expect("Just press enter please.");
@@ -105,6 +105,7 @@ fn no_dangle() -> String {
     return s1;
 }
 
+// Perform demo #5: Dangling reference
 fn dangle_no_dangle_demo() {
     println!("5. Dangle Reference");
     println!("--------------------\n");
@@ -116,18 +117,115 @@ fn dangle_no_dangle_demo() {
     pause();
 }
 
+// A helper to return first word of the input string
+fn first_word(sentence: &String) -> &str {
+    let bytes = sentence.as_bytes();
+
+    for (i, &char) in bytes.iter().enumerate() {
+        if char == b' ' {
+            return &sentence[0..i];
+        }
+    }
+
+    &sentence[..]
+}
+
+fn second_word(sentence: &String) -> &str {
+    let bytes = sentence.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &sentence[i..];
+        }
+    }
+
+    &sentence[..]
+}
+
+// Perform demo #6: Slices
+fn slices_demo() {
+    println!("6. Slices ");
+    println!("----------\n");
+
+    let s1 = String::from("hello world");
+    println!("Given 's1' is assigned with '{}' string.", s1);
+    println!("When `first_word` method is invoked which takes 's1' reference.");
+    let first_word = first_word(&s1);
+    println!("Then the method returns '{}'.", first_word);
+    
+    pause();
+
+    println!("When `second_word` method is invoked which takes 's1' reference.");
+    let second_word = second_word(&s1);
+    println!("Then the method returns '{}'.", second_word);
+
+    pause();
+}
+
+// A helper to accept user's input , in positive number
+fn get_entered_key() -> u32 {
+    let result: u32;
+    let stdin = io::stdin();
+
+    loop {
+        let mut entered_key = String::new();
+        stdin.read_line(&mut entered_key)
+            .expect("Failed to read line!");
+
+        result = match entered_key.trim().parse() {
+            Ok(num) => num,
+            Err(_) => continue,
+        };
+
+        break;
+    }
+
+    if result > 0 {
+        clear_screen();
+    }
+
+    result
+}
+
+// A helper to clear screen
+fn clear_screen() {
+    std::process::Command::new("clear").status().expect("Cannot clear screen.");
+}
+
 // Main entry
 fn main() {
-    println!("\nRust Ownership's Demo.");
-    println!("=====================\n");
+    loop {
+        println!("\n                           Rust Ownership's Demo.");
+        println!("===============================================================================");
+        println!("Press number key which correspond to a list of demos you want to look at below:\n");
+        println!("1 - Move");
+        println!("2 - Clone");
+        println!("3 - Function");
+        println!("4 - Reference");
+        println!("5 - Dangle/No Dangle");
+        println!("6 - Slices");
+        println!("0 - Exit this program\n");
+        println!(":");
 
-    move_demo();
+        let entered_key: u32 = get_entered_key();
 
-    clone_demo();
+        if entered_key == 0 { 
+            println!("Bye bye...");
+            break; 
+        } if entered_key == 1 {
+            move_demo();
+        } else if entered_key == 2 {
+            clone_demo();    
+        } else if entered_key == 3 {
+            function_demo();
+        } else if entered_key == 4 {
+            reference_demo();
+        } else if entered_key == 5 {
+            dangle_no_dangle_demo();
+        } else if entered_key == 6 {
+            slices_demo();
+        }
 
-    function_demo();
-
-    reference_demo();
-
-    dangle_no_dangle_demo();
+        clear_screen();   
+    }
 }
